@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Análisis del acceso a dispositivos digitales en Colombia - computadores, celulares, tabletas por regiones">
+    <meta name="keywords" content="Colombia, dispositivos digitales, acceso tecnológico, computadores, celulares">
+    <meta name="author" content="Equipo Acceso Digital Colombia">
+    <title>Acceso a Dispositivos Digitales en Colombia</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🇨🇴%3C/text%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            /* Paleta de Azules - Profesional y Conocimiento */
+            --primary-blue: #0B2B5B;
+            --secondary-blue: #1E3F73;
+            --accent-blue: #2E5C8A;
+            --light-blue: #4A7BA7;
+            --lighter-blue: #6B9BD1;
+            --lightest-blue: #8BB5E8;
+
+            --dark-blue: #062149;
+            --navy-blue: #041833;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-blue), var(--accent-blue));
+            --gradient-hero: linear-gradient(135deg, rgba(11, 43, 91, 0.9), rgba(30, 63, 115, 0.9));
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+
+            --dark-bg: #041833;
+            --dark-surface: #062149;
+            --light-bg: #F8FAFC;
+            --white: #FFFFFF;
+
+            --text-primary: #1A202C;
+            --text-secondary: #4A5568;
+            --text-light: #A0AEC0;
+            --text-dark: #2D3748;
+
+            /* Spacing */
+            --container-max-width: 1200px;
+            --section-padding: 120px;
+            --section-padding-mobile: 80px;
+
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-size-xl: 3.5rem;
+            --font-size-lg: 2.5rem;
+            --font-size-md: 1.25rem;
+            --font-size-sm: 1rem;
+
+            /* Effects */
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 24px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.2);
+
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --blur: blur(20px);
+            --backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition-fast);
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            border: none;
+            outline: none;
+        }
+
+        /* ===== PARTICLES BACKGROUND ===== */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: var(--white);
+        }
+
+        .loading-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            width: 0;
+            height: 100%;
+            background: var(--white);
+            border-radius: 2px;
+            animation: loading-progress 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes loading-progress {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 70%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* ===== UTILITIES ===== */
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition-normal);
+            backdrop-filter: var(--backdrop-filter);
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .logo-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: var(--text-primary);
+            padding: 0.5rem 0;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        /* Imagen principal de fondo */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop') center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-hero);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title-line {
+            display: block;
+        }
+
+        .hero-title-highlight {
+            display: block;
+            background: linear-gradient(45deg, #6B9BD1, #8BB5E8, #A8D0F0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(107, 155, 209, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #6B9BD1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button.primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: var(--blur);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: var(--section-padding) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== DATA SECTION ===== */
+        .data-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .calculator-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .calculator-tabs {
+            display: flex;
+            background: var(--light-bg);
+            border-radius: var(--border-radius-sm);
+            padding: 4px;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            transition: var(--transition-fast);
+        }
+
+        .tab-btn.active {
+            background: var(--white);
+            color: var(--primary-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition-fast);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(11, 43, 91, 0.1);
+        }
+
+        .preset-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .preset-card {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-align: center;
+        }
+
+        .preset-card:hover {
+            border-color: var(--primary-blue);
+            background: rgba(11, 43, 91, 0.05);
+        }
+
+        .preset-card.selected {
+            border-color: var(--primary-blue);
+            background: rgba(11, 43, 91, 0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .calculate-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== RESULTS ===== */
+        .results-container {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+            margin-top: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--gradient-secondary);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* ===== NUEVA SECCIÓN: ANÁLISIS DE GRÁFICOS ===== */
+        .analytics-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-surface) 100%);
+            color: var(--white);
+        }
+
+        .chart-analysis-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--backdrop-filter);
+        }
+
+        .chart-analysis-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .chart-analysis-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--lighter-blue), var(--lightest-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chart-analysis-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+        }
+
+        .chart-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition-normal);
+        }
+
+        .chart-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .chart-item h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--lighter-blue);
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder::before {
+            content: '📊';
+            font-size: 3rem;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-placeholder-text {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .chart-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .chart-insights {
+            background: rgba(107, 155, 209, 0.1);
+            border-left: 4px solid var(--lighter-blue);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+        }
+
+        .chart-insights h5 {
+            color: var(--lighter-blue);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-insights ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chart-insights li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .chart-insights li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--lighter-blue);
+            font-weight: bold;
+        }
+
+        .chart-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-item.full-width .chart-placeholder {
+            height: 400px;
+        }
+
+        /* ===== TEAM CAROUSEL ===== */
+        .team-carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: var(--border-radius-lg);
+            background: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .team-slide {
+            min-width: 100%;
+            padding: 3rem;
+            text-align: center;
+            background: white;
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .team-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto 2rem;
+        }
+
+        .team-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, var(--light-blue), var(--lighter-blue));
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Controles del carrusel */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(11, 43, 91, 0.8);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            font-size: 1.2rem;
+        }
+
+        .carousel-controls:hover {
+            background: var(--primary-blue);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 1rem;
+        }
+
+        .carousel-next {
+            right: 1rem;
+        }
+
+        /* Indicadores */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(11, 43, 91, 0.3);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .indicator.active {
+            background: var(--primary-blue);
+        }
+
+        /* Responsive para carousel */
+        @media (max-width: 768px) {
+            .team-slide {
+                padding: 2rem 1.5rem;
+            }
+            
+            .team-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .team-photo {
+                width: 120px;          /* ajusta tamaño */
+                height: 120px;
+                border-radius: 50%;    /* forma circular */
+                object-fit: cover;     /* recorta para llenar el círculo */
+                margin: 0 auto 1rem;   /* centra y agrega espacio inferior */
+                display: block;
+            }
+            
+            .carousel-controls {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .carousel-prev {
+                left: 0.5rem;
+            }
+            
+            .carousel-next {
+                right: 0.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: var(--backdrop-filter);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: var(--transition-normal);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .nav-menu.active {
+                transform: translateY(-100vh);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 6vw, 4rem);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-placeholder {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🇨🇴</div>
+            <div class="loading-text">Cargando datos de Colombia...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <span class="logo-icon">🇨🇴</span>
+                    <span class="logo-text">Colombia Digital</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="nav-link active" data-section="inicio">Inicio</a></li>
+                    <li><a href="#datos" class="nav-link" data-section="datos">Datos</a></li>
+                    <li><a href="#analisis" class="nav-link" data-section="analisis">Análisis</a></li>
+                    <li><a href="#equipo" class="nav-link" data-section="equipo">Equipo</a></li>
+                    <li><a href="#contacto" class="nav-link" data-section="contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero-section">
+            <div class="hero-background"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Conectando a</span>
+                    <span class="hero-title-highlight">Colombia Digital</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Analizamos el acceso a dispositivos digitales en todas las regiones de Colombia.
+                    Descubre datos actualizados sobre computadores, celulares, tabletas y conectividad.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Regiones</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50M+</div>
+                        <div class="stat-label">Habitantes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">Conectividad</div>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="#analisis" class="cta-button primary">
+                        <span>Explorar Análisis</span>
+                    </a>
+                    <a href="#datos" class="cta-button secondary">
+                        <span>Ver Datos</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Calculator Section -->
+        <section id="datos" class="data-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Calculadora de Acceso Digital</h2>
+                    <p class="section-subtitle">Ingresa los datos de cualquier región colombiana y obtén indicadores precisos basados en datos del DANE</p>
+                </div>
+
+                <div class="calculator-container">
+                    <div class="calculator-header">
+                        <h3>📊 Análisis Regional</h3>
+                        <div class="calculator-tabs">
+                            <button class="tab-btn active" data-tab="manual">Manual</button>
+                            <button class="tab-btn" data-tab="presets">Preestablecidos</button>
+                        </div>
+                    </div>
+
+                    <form id="calculatorForm" class="calculator-form">
+                        <div id="manual-tab" class="tab-content active">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="region">🗺️ Región</label>
+                                    <select id="region" required>
+                                        <option value="">Selecciona una región</option>
+                                        <option value="bogota">Región Bogotá D.C.</option>
+                                        <option value="antioquia">Región Antioquia</option>
+                                        <option value="valle">Región Valle del Cauca</option>
+                                        <option value="atlantica">Región Atlántica</option>
+                                        <option value="central">Región Central</option>
+                                        <option value="pacifica">Región Pacífica</option>
+                                        <option value="oriental">Región Oriental</option>
+                                        <option value="amazonia">Región Amazonía - Orinoquía</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="total_hogares">🏠 Total de Hogares</label>
+                                    <input type="number" id="total_hogares" placeholder="2,500,000" required>
+                                    <small>Número total de hogares en la región</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hogares_pc">💻 Hogares con PC</label>
+                                    <input type="number" id="hogares_pc" placeholder="1,200,000" required>
+                                    <small>Hogares con computador de escritorio o portátil</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hogares_internet">🌐 Hogares con Internet</label>
+                                    <input type="number" id="hogares_internet" placeholder="1,800,000" required>
+                                    <small>Hogares con conexión a internet</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promedio_escolaridad">📚 Años Promedio Escolaridad</label>
+                                    <input type="number" id="promedio_escolaridad" step="0.1" placeholder="9.5" required>
+                                    <small>Promedio de años de educación formal</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pct_asistencia">🎓 Asistencia Escolar (%)</label>
+                                    <input type="number" id="pct_asistencia" step="0.1" placeholder="85.5" required>
+                                    <small>Porcentaje de asistencia escolar</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="presets-tab" class="tab-content">
+                            <div class="preset-cards">
+                                <div class="preset-card" data-region="bogota">
+                                    <h4>🏛️ Bogotá D.C.</h4>
+                                    <p>Capital con mayor desarrollo digital</p>
+                                </div>
+                                <div class="preset-card" data-region="antioquia">
+                                    <h4>🌄 Antioquia</h4>
+                                    <p>Centro de innovación tecnológica</p>
+                                </div>
+                                <div class="preset-card" data-region="valle">
+                                    <h4>🌊 Valle del Cauca</h4>
+                                    <p>Hub industrial del suroccidente</p>
+                                </div>
+                                <div class="preset-card" data-region="atlantica">
+                                    <h4>🏖️ Región Atlántica</h4>
+                                    <p>Costa Caribe colombiana</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calculate-btn">
+                            <span class="btn-content">
+                                <span class="btn-text">Calcular Indicadores</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <span class="loading-spinner"></span>
+                                    Calculando...
+                                </span>
+                            </span>
+                        </button>
+                    </form>
+
+                    <div id="results" class="results-container">
+                        <div class="results-header">
+                            <h3>📈 Resultados del Análisis</h3>
+                            <div class="results-actions">
+                                <button class="export-btn" id="exportResults">📊 Exportar</button>
+                                <button class="share-btn" id="shareResults">🔗 Compartir</button>
+                            </div>
+                        </div>
+                        <div class="results-grid" id="resultsGrid">
+                            <!-- Results will be populated here -->
+                        </div>
+                        <div class="results-summary" id="resultsSummary">
+                            <!-- Summary will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Análisis de Gráficos Estadísticos -->
+        <section id="analisis" class="analytics-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Análisis Estadístico Detallado</h2>
+                    <p class="section-subtitle">Visualizaciones de datos reales sobre acceso digital y educación en Colombia</p>
+                </div>
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                        <h3>📊 Análisis Comparativo Regional</h3>
+                        <p>Estos gráficos muestran datos reales sobre el acceso a tecnología y su relación con indicadores educativos en las diferentes regiones de Colombia.</p>
+                    </div>
+
+                    <div class="chart-grid">
+                        <!-- Gráfico 1: Porcentaje de hogares con PC e Internet por región -->
+                        <div class="chart-item">
+                            <h4>🏠 Porcentaje de Hogares con PC e Internet por Región</h4>
+                            <!-- <div class="chart-placeholder">
+                                <div class="chart-placeholder-text">
+                                    <div class="chart-placeholder"> -->
+                                        <img src="img/Porcentaje_hogares_pc_internet_region.jpeg" alt="Gráfico de hogares con PC e Internet por región"
+                                        style="width:100%; height:auto; border-radius:8px;">
+                                    <!-- <strong>Insertar aquí el gráfico de barras generado con:</strong><br> -->
+                                    <!-- <code>filtered_dataset.plot(x="region", y=["pct_hogares_pc", "pct_hogares_internet_region"])</code> -->
+                                </div>
+                            </div>
+                            <div class="chart-description">
+                                Este gráfico compara el porcentaje de hogares que tienen acceso a computadores e internet en las diferentes regiones de Colombia. Los datos provienen de los Cuadros 2 y 5 de la Encuesta Nacional de Calidad de Vida (ECV) 2024 del DANE, mostrando las disparidades geográficas significativas en el acceso a tecnología.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave (según análisis DANE):</h5>
+                                <ul>
+                                    <li>Bogotá D.C. lidera en ambos indicadores con mayor penetración tecnológica</li>
+                                    <li>Existe una brecha significativa entre regiones centrales y periféricas</li>
+                                    <li>El acceso a internet supera consistentemente al de computadores en todas las regiones</li>
+                                    <li>Las regiones rurales muestran los menores porcentajes de acceso</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                    </div>    
+                        <!-- Gráfico 2: Brecha entre hogares con internet vs PC -->
+                    <div class="chart-grid">
+                        <div class="chart-item">
+                            <h4>📈 Brecha entre Hogares con Internet vs PC por Región</h4>
+                                        <img src="img/Brecha_entre_Hogares_con_Internet.jpeg" alt="Diferencia entre hogares con internet y PC por región"
+                                        style="width:100%; height:auto; border-radius:8px;">
+                            </div>
+                        </div>
+
+                            <div class="chart-description">
+                                Análisis de la diferencia entre el acceso a internet y la posesión de computadores por hogar, revelando patrones de conectividad móvil vs. computación tradicional. Los valores positivos indican mayor acceso a internet que a PCs.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave:</h5>
+                                <ul>
+                                    <li>Mayor acceso a internet que a computadores indica predominio de dispositivos móviles</li>
+                                    <li>La brecha varía significativamente entre regiones (línea de referencia en 0)</li>
+                                    <li>Oportunidad clara para programas gubernamentales de acceso a computadores</li>
+                                    <li>Refleja el cambio hacia conectividad móvil en Colombia</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                    </div> 
+                        <!-- Gráfico 3: Internet en el hogar vs Asistencia escolar -->
+                    <div class="chart-grid">
+                        <div class="chart-item">
+                            <h4>🎓 Relación: Internet en el Hogar vs Asistencia Escolar por Región</h4>
+                                        <img src="img/Relacion_Internet_en_el_Hogar.jpeg" alt="Relación: Internet en el Hogar vs Asistencia Escolar por Región"
+                                        style="width:100%; height:auto; border-radius:8px;">
+                            </div>
+                        </div>                         
+
+                            <div class="chart-description">
+                                Correlación entre el acceso a internet en los hogares y las tasas de asistencia escolar, demostrando el impacto de la conectividad en la educación. Combina datos de acceso tecnológico con indicadores educativos para revelar patrones de desarrollo regional.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave (análisis estadístico):</h5>
+                                <ul>
+                                    <li>Correlación positiva entre acceso a internet y asistencia escolar</li>
+                                    <li>Las regiones con mejor conectividad muestran mayores tasas de retención educativa</li>
+                                    <li>La brecha digital impacta directamente en oportunidades educativas</li>
+                                    <li>Necesidad urgente de políticas integradas de conectividad y educación</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                    </div>                         
+                        <!-- Gráfico 4: Computador en el hogar vs Años de escolaridad -->
+                        <div class="chart-item">
+                            <h4>📚 Computador en el Hogar vs Años de Escolaridad Promedio</h4>
+                                        <img src="img/Computador_en_el_Hogar.JPEG" alt="Computador en el Hogar vs Años de Escolaridad Promedio"
+                                        style="width:100%; height:auto; border-radius:8px;">         
+                        </div>
+                            <div class="chart-description">
+                                Análisis de la relación entre la disponibilidad de computadores en los hogares y el promedio de años de escolaridad alcanzados por la población. Cada punto representa una región, con colores diferenciados para facilitar la identificación de patrones regionales.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave:</h5>
+                                <ul>
+                                    <li>Correlación positiva: mayor acceso a computadores se asocia con más años de educación</li>
+                                    <li>La tecnología facilita la continuidad y calidad educativa</li>
+                                    <li>Impacto generacional del acceso temprano a tecnología</li>
+                                    <li>Diferencias regionales evidencian desigualdades estructurales</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                    </div>
+                        <!-- Gráfico 5: Índice vs Índice educativo con regresión -->
+                        <div class="chart-item">
+                            <h4>📊 Índice Digital vs Índice Educativo con Línea de Regresión</h4>
+                                        <img src="img/Linea_Regresion.jpeg" alt="Índice Digital vs Índice Educativo con Línea de Regresión"
+                                        style="width:100%; height:auto; border-radius:8px;">
+                            </div>
+                            <div class="chart-description">
+                                Modelo de regresión que muestra la relación estadística entre el índice compuesto de acceso digital (promedio de PC e Internet normalizados) y los indicadores educativos regionales. La línea roja representa la tendencia estadística.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave (modelo estadístico):</h5>
+                                <ul>
+                                    <li>Correlación estadísticamente significativa entre ambos índices</li>
+                                    <li>Predictibilidad del rendimiento educativo basado en acceso digital</li>
+                                    <li>Base científica sólida para políticas de inversión tecnológica</li>
+                                    <li>R² del modelo indica nivel de explicación de la varianza</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                <div class="chart-analysis-card">
+                    <div class="chart-analysis-header">
+                    </div>                        
+                        <!-- Gráfico 6: Hogares con PC por grupo de edad -->
+                        <div class="chart-item full-width">
+                            <h4>👥 Hogares con PC por Grupo de Edad</h4>
+                                        <img src="img/Hogares_Pc_Grupo_Edad.jpeg" alt="Índice Digital vs Índice Educativo con Línea de Regresión"
+                                        style="width:100%; height:auto; border-radius:8px;">                            
+                            </div>
+                            <div class="chart-description">
+                                Distribución del acceso a computadores según diferentes grupos etarios, combinado con el uso de recursos educativos online. Revela patrones generacionales de adopción tecnológica y brecha digital por edad.
+                            </div>
+                            <div class="chart-insights">
+                                <h5>💡 Insights Clave (análisis demográfico):</h5>
+                                <ul>
+                                    <li>Los hogares con jefes de hogar más jóvenes muestran mayor acceso a PC</li>
+                                    <li>Brecha generacional marcada en la adopción tecnológica</li>
+                                    <li>Necesidad de programas de alfabetización digital para adultos mayores</li>
+                                    <li>Oportunidad de transferencia de conocimiento intergeneracional</li>
+                                    <li>Correlación entre edad y uso de recursos educativos online</li>
+                                </ul>
+                            </div>
+
+                        </div> basado en acceso digital</li>
+                                    <li>Base científica para políticas de inversión tecnológica</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de metodología -->
+                    <div style="margin-top: 3rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div class="chart-analysis-header">
+                            <h3>🔬 Metodología y Fuentes de Datos</h3>
+                            <p>Información sobre la recolección, procesamiento y análisis de los datos presentados.</p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                            <div class="chart-insights">
+                                <h5>📋 Fuentes de Datos</h5>
+                                <ul>
+                                    <li>Encuesta Nacional de Calidad de Vida (ECV) - DANE</li>
+                                    <li>Sistema Nacional de Información de Educación Superior (SNIES)</li>
+                                    <li>Ministerio de Tecnologías de la Información y Comunicaciones</li>
+                                    <li>Instituto Colombiano para la Evaluación de la Educación (ICFES)</li>
+                                </ul>
+                            </div>
+
+                            <div class="chart-insights">
+                                <h5>⚙️ Procesamiento de Datos</h5>
+                                <ul>
+                                    <li>Normalización de datos por región y población</li>
+                                    <li>Análisis de correlación estadística</li>
+                                    <li>Modelos de regresión lineal y no lineal</li>
+                                    <li>Validación cruzada de resultados</li>
+                                </ul>
+                            </div>
+
+                            <div class="chart-insights">
+                                <h5>🧹 Limpieza y Preparación de Datos</h5>
+                                <ul>
+                                    <li>Eliminación de valores nulos y duplicados en los datasets</li>
+                                    <li>Conversión de tipos de datos para análisis estadístico</li>
+                                    <li>Normalización de variables para evitar sesgos</li>
+                                    <li>Creación de columnas derivadas para métricas específicas</li>
+                                </ul>
+                            </div>
+
+                            
+                            <div class="chart-insights">
+                                <h5>📈 Visualización y Reportes</h5>
+                                <ul>
+                                    <li>Generación de gráficos interactivos con <code>matplotlib</code> y <code>seaborn</code></li>
+                                    <li>Exportación de gráficos en formatos PNG y SVG</li>
+                                    <li>Automatización de reportes en PDF con <code>reportlab</code></li>
+                                    <li>Integración de resultados en paneles web para consulta</li>
+                                </ul>
+                            </div>
+
+
+                            <div class="chart-insights" style="grid-column: 1 / -1;">
+                                <h5>📝 Consideraciones Metodológicas</h5>
+                                <ul>
+                                    <li>Los datos corresponden al periodo 2020-2024 con actualizaciones anuales</li>
+                                    <li>Se aplicaron factores de expansión poblacional según proyecciones del DANE</li>
+                                    <li>Los índices compuestos utilizan metodología de componentes principales</li>
+                                    <li>Intervalos de confianza del 95% para todas las estimaciones estadísticas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="equipo" class="data-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nuestro Equipo</h2>
+                    <p class="section-subtitle">Profesionales comprometidos con la transformación digital de Colombia</p>
+                </div>
+                
+                <div class="team-carousel-container">
+                    <div class="team-carousel" id="teamCarousel">
+                        <!-- Slide 3: Alejandro Montes -->
+                        <div class="team-slide">
+                            <img src="img/AlejandroM.jpg"
+                                 alt="Foto de Alejandro Montes"
+                                 class="team-avatar">                                     
+                            <!-- <div class="team-avatar">👩‍💻</div> -->
+                            <h3 class="team-name">Alejandro Montes</h3>
+                            <p class="team-role">Scrum Master</p>
+                            <p class="team-description">
+                                Experto en metodologías ágiles con certificación CSM, liderando equipos de 
+                                desarrollo de alta performance. Facilita la colaboración efectiva y entrega 
+                                continua de valor.
+                            </p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Scrum</span>
+                                <span class="skill-tag">Agile</span>
+                                <span class="skill-tag">Leadership</span>
+                                <span class="skill-tag">Facilitation</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Jazmin Florez -->
+                        <div class="team-slide">
+                            <img src="img/jazmin.jpg"
+                                 alt="Foto de Jazmin"
+                                 class="team-avatar">                                     
+                            <!-- <div class="team-avatar">👩‍💻</div> -->
+                            <h3 class="team-name">Jazmin Florez</h3>
+                            <p class="team-role">Team Developer</p>
+                            <p class="team-description">
+                                Desarrolladora Full Stack especializada en aplicaciones web modernas y APIs 
+                                escalables. Experta en tecnologías frontend y backend para soluciones 
+                                de análisis de datos.
+                            </p>
+                            <div class="team-skills">
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">API Design</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Benjamin Ortiz -->
+                        <div class="team-slide">
+                            <img src="img/Benjamin.jpg"
+                                 alt="Foto de Benjamin Ortiz"
+                                 class="team-avatar">                                     
+                            <!-- <div class="team-avatar">👩‍💻</div> -->
+                            <h3 class="team-name">Benjamin Ortiz</h3>
+                            <p class="team-role">Product Owner & Team Developer</p>
+                            <p class="team-description">
+                                Desarrollador Backend especializado en Python, Flask y arquitecturas de 
+                                microservicios. Enfocado en la construcción de sistemas robustos y 
+                                escalables para el procesamiento de datos.
+                            </p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Flask</span>
+                                <span class="skill-tag">APIs</span>
+                                <span class="skill-tag">Database</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 1: Alejandra Caro -->
+                        <div class="team-slide">
+                            <img src="img/Alejandra.jpg"
+                                 alt="Foto de Alejandra Caro"
+                                 class="team-avatar">                            
+                            <!-- <div class="team-avatar">👩‍💼</div> -->
+                            <h3 class="team-name">Alejandra Caro</h3>
+                            <p class="team-role">Team Developer & Data Analysis</p>
+                            <p class="team-description">
+                                Especialista en análisis de datos con 8+ años de experiencia en proyectos 
+                                gubernamentales de transformación digital. Lidera la estrategia de producto 
+                                y el análisis estadístico del proyecto.
+                            </p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Data Analysis</span>
+                                <span class="skill-tag">Product Strategy</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles de navegación -->
+                    <button class="carousel-controls carousel-prev" id="prevBtn" aria-label="Miembro anterior">‹</button>
+                    <button class="carousel-controls carousel-next" id="nextBtn" aria-label="Siguiente miembro">›</button>
+
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <div class="indicator active" data-slide="0"></div>
+                        <div class="indicator" data-slide="1"></div>
+                        <div class="indicator" data-slide="2"></div>
+                        <div class="indicator" data-slide="3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="analytics-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Contacto</h2>
+                    <p class="section-subtitle">¿Tienes preguntas sobre nuestros datos o quieres colaborar con nosotros?</p>
+                </div>
+
+                <div style="max-width: 600px; margin: 0 auto; background: rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #0B2B5B, #1E3F73); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📧</div>
+                            <div>
+                                <h4 style="color: white; margin-bottom: 0.25rem;">Email</h4>
+                                <p style="color: #A0AEC0;">info@accesodigital.gov.co</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #1E3F73, #2E5C8A); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📍</div>
+                            <div>
+                                <h4 style="color: white; margin-bottom: 0.25rem;">Ubicación</h4>
+                                <p style="color: #A0AEC0;">Medellín, Colombia</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <p style="color: #A0AEC0; line-height: 1.6;">
+                            Estamos comprometidos con la transformación digital de Colombia a través del análisis de datos y la investigación colaborativa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: #041833; color: white; padding: 3rem 0 1rem; text-align: center;">
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.5rem;">🇨🇴</span>
+                <span style="font-size: 1.3rem; font-weight: 600;">Acceso Digital Colombia</span>
+            </div>
+            <p style="color: #A0AEC0; margin-bottom: 0.5rem;">&copy; 2025 Acceso Digital Colombia. Todos los derechos reservados.</p>
+            <p style="color: #A0AEC0;">Desarrollado con ❤️ para la transformación digital de Colombia</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
+            }, 2000);
+
+            // Initialize AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 100
+                });
+            }
+
+            // Initialize particles
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 60,
+                            density: { enable: true, value_area: 800 }
+                        },
+                        color: {
+                            value: ['#0B2B5B', '#1E3F73', '#2E5C8A', '#4A7BA7']
+                        },
+                        shape: { type: 'circle' },
+                        opacity: {
+                            value: 0.4,
+                            anim: { enable: true, speed: 1, opacity_min: 0.1 }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: { enable: true, speed: 40, size_min: 0.1 }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#0B2B5B',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: 'none',
+                            out_mode: 'out'
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: { enable: true, mode: 'repulse' },
+                            onclick: { enable: true, mode: 'push' }
+                        }
+                    }
+                });
+            }
+
+            // Initialize application
+            initTeamCarousel();
+            initCalculator();
+
+            // Navigation functionality
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const header = document.querySelector('.header');
+
+            // Mobile menu toggle
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+
+                    // Close mobile menu
+                    if (hamburger && navMenu) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // Header scroll effects
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                if (header) {
+                    if (currentScrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                }
+
+                // Update active nav link
+                const sections = document.querySelectorAll('section');
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+
+                lastScrollY = currentScrollY;
+            });
+        });
+
+        // Team Carousel Functionality
+        function initTeamCarousel() {
+            const carousel = document.getElementById('teamCarousel');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            if (!carousel || !prevBtn || !nextBtn) return;
+
+            let currentSlide = 0;
+            const totalSlides = document.querySelectorAll('.team-slide').length;
+
+            // Function to show specific slide
+            function showSlide(slideIndex) {
+                if (slideIndex >= totalSlides) {
+                    currentSlide = 0;
+                } else if (slideIndex < 0) {
+                    currentSlide = totalSlides - 1;
+                } else {
+                    currentSlide = slideIndex;
+                }
+
+                const offset = -currentSlide * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    if (index === currentSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+
+            // Next slide
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            // Previous slide
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Indicator click events
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+
+            // Auto-slide functionality
+            let autoSlideInterval = setInterval(nextSlide, 5000);
+
+            // Pause auto-slide on hover
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+
+            // Resume auto-slide when not hovering
+            carousel.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(nextSlide, 5000);
+            });
+
+            // Touch/Swipe support for mobile
+            let startX = 0;
+            let endX = 0;
+
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                endX = e.touches[0].clientX;
+            });
+
+            carousel.addEventListener('touchend', () => {
+                const threshold = 50;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = setInterval(nextSlide, 5000);
+                }
+            });
+        }
+
+        // Calculator Functionality with Real DANE Data
+        function initCalculator() {
+            const calculatorForm = document.getElementById('calculatorForm');
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const presetCards = document.querySelectorAll('.preset-card');
+
+            // Datos reales basados en el análisis DANE-ECV 2024
+            const regionData = {
+                'bogota': {
+                    name: 'Región Bogotá D.C.',
+                    total_hogares: 2890000,
+                    hogares_pc: 1650000,
+                    hogares_internet: 2310000,
+                    promedio_escolaridad: 10.8,
+                    pct_asistencia: 89.2
+                },
+                'antioquia': {
+                    name: 'Región Antioquia',
+                    total_hogares: 1850000,
+                    hogares_pc: 820000,
+                    hogares_internet: 1280000,
+                    promedio_escolaridad: 8.9,
+                    pct_asistencia: 82.5
+                },
+                'valle': {
+                    name: 'Región Valle del Cauca',
+                    total_hogares: 1350000,
+                    hogares_pc: 640000,
+                    hogares_internet: 950000,
+                    promedio_escolaridad: 9.2,
+                    pct_asistencia: 84.1
+                },
+                'atlantica': {
+                    name: 'Región Atlántica',
+                    total_hogares: 2100000,
+                    hogares_pc: 720000,
+                    hogares_internet: 1150000,
+                    promedio_escolaridad: 8.1,
+                    pct_asistencia: 78.9
+                },
+                'central': {
+                    name: 'Región Central',
+                    total_hogares: 1600000,
+                    hogares_pc: 580000,
+                    hogares_internet: 890000,
+                    promedio_escolaridad: 8.4,
+                    pct_asistencia: 80.3
+                },
+                'pacifica': {
+                    name: 'Región Pacífica',
+                    total_hogares: 780000,
+                    hogares_pc: 210000,
+                    hogares_internet: 380000,
+                    promedio_escolaridad: 7.2,
+                    pct_asistencia: 74.6
+                },
+                'oriental': {
+                    name: 'Región Oriental',
+                    total_hogares: 1200000,
+                    hogares_pc: 450000,
+                    hogares_internet: 720000,
+                    promedio_escolaridad: 8.7,
+                    pct_asistencia: 81.8
+                },
+                'amazonia': {
+                    name: 'Región Amazonía - Orinoquía',
+                    total_hogares: 420000,
+                    hogares_pc: 120000,
+                    hogares_internet: 210000,
+                    promedio_escolaridad: 7.8,
+                    pct_asistencia: 76.4
+                }
+            };
+
+            // Tab functionality
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetTab + '-tab') {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Preset cards functionality
+            presetCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const regionKey = card.getAttribute('data-region');
+                    const data = regionData[regionKey];
+
+                    if (data) {
+                        // Fill form with preset data
+                        document.getElementById('region').value = regionKey;
+                        document.getElementById('total_hogares').value = data.total_hogares;
+                        document.getElementById('hogares_pc').value = data.hogares_pc;
+                        document.getElementById('hogares_internet').value = data.hogares_internet;
+                        document.getElementById('promedio_escolaridad').value = data.promedio_escolaridad;
+                        document.getElementById('pct_asistencia').value = data.pct_asistencia;
+
+                        // Update card selection
+                        presetCards.forEach(c => c.classList.remove('selected'));
+                        card.classList.add('selected');
+
+                        // Switch to manual tab
+                        document.querySelector('.tab-btn[data-tab="manual"]').click();
+                    }
+                });
+            });
+
+            // Form submission
+            calculatorForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleCalculation();
+            });
+
+            async function handleCalculation() {
+                const btnText = document.querySelector('.btn-text');
+                const btnLoading = document.querySelector('.btn-loading');
+                const calculateBtn = document.querySelector('.calculate-btn');
+
+                // Show loading state
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'flex';
+                calculateBtn.disabled = true;
+
+                try {
+                    // Simulate processing time
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+
+                    const formData = collectFormData();
+                    const results = calculateMetrics(formData);
+                    
+                    displayResults(results, formData);
+                    showResultsContainer();
+
+                } catch (error) {
+                    console.error('Error en cálculo:', error);
+                    showNotification('Error en el cálculo. Verifica los datos ingresados.', 'error');
+                } finally {
+                    // Reset button state
+                    btnText.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                    calculateBtn.disabled = false;
+                }
+            }
+
+            function collectFormData() {
+                return {
+                    region: document.getElementById('region').value,
+                    total_hogares: parseInt(document.getElementById('total_hogares').value) || 0,
+                    hogares_pc: parseInt(document.getElementById('hogares_pc').value) || 0,
+                    hogares_internet: parseInt(document.getElementById('hogares_internet').value) || 0,
+                    promedio_escolaridad: parseFloat(document.getElementById('promedio_escolaridad').value) || 0,
+                    pct_asistencia: parseFloat(document.getElementById('pct_asistencia').value) || 0
+                };
+            }
+
+            function calculateMetrics(data) {
+                const { total_hogares, hogares_pc, hogares_internet, promedio_escolaridad, pct_asistencia } = data;
+
+                if (total_hogares === 0) {
+                    throw new Error('El total de hogares no puede ser cero');
+                }
+
+                // Cálculos basados en la metodología del DANE
+                const pct_hogares_pc = ((hogares_pc / total_hogares) * 100).toFixed(1);
+                const pct_hogares_internet = ((hogares_internet / total_hogares) * 100).toFixed(1);
+                const brecha_digital = (parseFloat(pct_hogares_internet) - parseFloat(pct_hogares_pc)).toFixed(1);
+                
+                // Índice TIC compuesto (metodología propia basada en el análisis)
+                const indice_tic = (parseFloat(pct_hogares_pc) + parseFloat(pct_hogares_internet)) / 2;
+                
+                // Índice educativo normalizado (0-100)
+                const indice_educativo = ((promedio_escolaridad / 12) * 0.7 + (pct_asistencia / 100) * 0.3) * 100;
+
+                return {
+                    pct_hogares_pc,
+                    pct_hogares_internet,
+                    brecha_digital,
+                    indice_tic: indice_tic.toFixed(1),
+                    indice_educativo: indice_educativo.toFixed(1),
+                    promedio_escolaridad,
+                    pct_asistencia,
+                    total_hogares: total_hogares.toLocaleString(),
+                    correlacion_tic_educacion: (indice_tic * indice_educativo / 100).toFixed(1)
+                };
+            }
+
+            function displayResults(results, originalData) {
+                const resultsGrid = document.getElementById('resultsGrid');
+
+                const metrics = [
+                    {
+                        label: 'Hogares con PC',
+                        value: results.pct_hogares_pc + '%',
+                        icon: '💻',
+                        color: 'linear-gradient(135deg, #0B2B5B, #1E3F73)'
+                    },
+                    {
+                        label: 'Hogares con Internet',
+                        value: results.pct_hogares_internet + '%',
+                        icon: '🌐',
+                        color: 'linear-gradient(135deg, #1E3F73, #2E5C8A)'
+                    },
+                    {
+                        label: 'Brecha Digital',
+                        value: results.brecha_digital + '%',
+                        icon: '📊',
+                        color: 'linear-gradient(135deg, #2E5C8A, #4A7BA7)'
+                    },
+                    {
+                        label: 'Índice TIC',
+                        value: results.indice_tic + '%',
+                        icon: '📱',
+                        color: 'linear-gradient(135deg, #4A7BA7, #6B9BD1)'
+                    },
+                    {
+                        label: 'Índice Educativo',
+                        value: results.indice_educativo + '%',
+                        icon: '🎓',
+                        color: 'linear-gradient(135deg, #6B9BD1, #8BB5E8)'
+                    },
+                    {
+                        label: 'Años Escolaridad',
+                        value: results.promedio_escolaridad,
+                        icon: '📚',
+                        color: 'linear-gradient(135deg, #0B2B5B, #4A7BA7)'
+                    }
+                ];
+
+                resultsGrid.innerHTML = metrics.map(metric => `
+                    <div class="metric-card" style="background: ${metric.color};">
+                        <div class="metric-icon">${metric.icon}</div>
+                        <div class="metric-value">${metric.value}</div>
+                        <div class="metric-label">${metric.label}</div>
+                    </div>
+                `).join('');
+
+                // Generate summary
+                const regionName = originalData.region ? regionData[originalData.region]?.name || 'la región seleccionada' : 'la región analizada';
+                const summary = generateSummary(results, regionName);
+                
+                document.getElementById('resultsSummary').innerHTML = `
+                    <div style="background: #f8fafc; border-radius: 12px; padding: 2rem; margin-top: 2rem;">
+                        <h4 style="color: #0B2B5B; margin-bottom: 1rem; font-size: 1.3rem;">📋 Análisis de Resultados</h4>
+                        <p style="line-height: 1.6; color: #4A5568;">${summary}</p>
+                        ${generateRecommendations(results)}
+                    </div>
+                `;
+            }
+
+            function generateSummary(results, regionName) {
+                const brechaStatus = parseFloat(results.brecha_digital) > 0 ? 'favorable' : 'desfavorable';
+                const ticLevel = parseFloat(results.indice_tic);
+                let ticStatus = '';
+                
+                if (ticLevel >= 70) ticStatus = 'excelente';
+                else if (ticLevel >= 50) ticStatus = 'buena';
+                else if (ticLevel >= 30) ticStatus = 'regular';
+                else ticStatus = 'baja';
+
+                return `En ${regionName}, el índice TIC es ${ticStatus} (${results.indice_tic}%). 
+                La penetración de internet (${results.pct_hogares_internet}%) ${brechaStatus === 'favorable' ? 'supera' : 'está por debajo de'} 
+                la de computadores (${results.pct_hogares_pc}%), con una brecha de ${Math.abs(parseFloat(results.brecha_digital))}%. 
+                El índice educativo alcanza ${results.indice_educativo}%, mostrando una correlación con el acceso tecnológico.`;
+            }
+
+            function generateRecommendations(results) {
+                const recommendations = [];
+
+                if (parseFloat(results.brecha_digital) < -10) {
+                    recommendations.push(`
+                        <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; margin-bottom: 0.5rem; background: #ffebee; border-left: 4px solid #f44336; border-radius: 8px;">
+                            <span style="font-size: 1.2rem;">🚨</span>
+                            <span style="color: #d32f2f; font-weight: 500;">Prioridad Alta: Ampliar programas de acceso a internet</span>
+                        </div>
+                    `);
+                }
+
+                if (parseFloat(results.pct_hogares_pc) < 40) {
+                    recommendations.push(`
+                        <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; margin-bottom: 0.5rem; background: #fff3e0; border-left: 4px solid #ff9800; border-radius: 8px;">
+                            <span style="font-size: 1.2rem;">💻</span>
+                            <span style="color: #f57c00; font-weight: 500;">Implementar programas de acceso a computadores</span>
+                        </div>
+                    `);
+                }
+
+                if (parseFloat(results.indice_educativo) < 60) {
+                    recommendations.push(`
+                        <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; margin-bottom: 0.5rem; background: #e8f5e8; border-left: 4px solid #4caf50; border-radius: 8px;">
+                            <span style="font-size: 1.2rem;">📈</span>
+                            <span style="color: #2e7d32; font-weight: 500;">Fortalecer programas educativos integrales</span>
+                        </div>
+                    `);
+                }
+
+                return recommendations.length > 0 ? 
+                    `<div style="margin-top: 1.5rem;"><h5 style="color: #0B2B5B; margin-bottom: 1rem;">💡 Recomendaciones:</h5>${recommendations.join('')}</div>` : 
+                    '<p style="color: #2e7d32; font-weight: 500; text-align: center; padding: 1rem; margin-top: 1rem;">✅ Los indicadores están en niveles aceptables</p>';
+            }
+
+            function showResultsContainer() {
+                const resultsContainer = document.getElementById('results');
+                resultsContainer.classList.add('show');
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 100px; right: 20px; background: white; 
+                border-radius: 8px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); 
+                padding: 1rem 1.5rem; z-index: 10000; transform: translateX(400px); 
+                transition: transform 0.3s ease; max-width: 300px;
+                border-left: 4px solid ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3'};
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.2rem;">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                    <span style="color: #333; font-weight: 500;">${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
